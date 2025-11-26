@@ -1,7 +1,6 @@
 import { test, expect } from '../../fixtures/test-fixtures';
-import { PAYMENT_DATA } from '../../utils/test-data';
-import * as path from 'path';
-import * as fs from 'fs';
+import { TEST_USERS, PAYMENT_DATA, successMessage } from '../../utils/test-data';
+import checkoutData from '../../data-driven/checkout-comments.json';
 
 /**
  * Suite de pruebas UI para Checkout
@@ -11,7 +10,7 @@ test.describe('UI - Checkout Tests', () => {
   test.beforeEach(async ({ authenticatedPage, productsPage, cartPage }) => {
     await productsPage.goto();
     await productsPage.addProductToCart(0);
-    await productsPage.goToCart();
+    await productsPage.goToCart();  
   });
 
   test('TC12 - Flujo completo de checkout', async ({ page, cartPage, checkoutPage }) => {
@@ -19,13 +18,11 @@ test.describe('UI - Checkout Tests', () => {
     
     await expect(checkoutPage.deliveryAddress).toBeVisible();
     const addressText = await checkoutPage.getDeliveryAddressText();
-    expect(addressText.length).toBeGreaterThan(0);
-    
-    const comment = 'Por favor, entregar en la mañana';
-    await checkoutPage.addComment(comment);
-    
+    await expect(addressText).toContain(TEST_USERS.billingAddress.street);
+    await expect(addressText).toContain(TEST_USERS.billingAddress.country);
+
+    await checkoutPage.addComment(TEST_USERS.billingAddress.commentCheckout);
     await checkoutPage.placeOrder();
-    
     await expect(page).toHaveURL(/.*payment/);
   });
 
@@ -41,9 +38,10 @@ test.describe('UI - Checkout Tests', () => {
       PAYMENT_DATA.expiryMonth,
       PAYMENT_DATA.expiryYear
     );
-    
     await paymentPage.submitPayment();
-    
+    const messageSuccess = await paymentPage.getSuccessMessage();
+    expect(messageSuccess?.trim()).toContain(successMessage);
+
     await page.waitForTimeout(2000);
     const currentUrl = page.url();
     
@@ -65,10 +63,8 @@ test.describe('UI - Checkout Tests', () => {
  * Data-Driven: Checkout con diferentes comentarios
  */
 test.describe('UI - Checkout Data-Driven Tests', () => {
-  const dataPath = path.join(__dirname, '../../data-driven/checkout-comments.json');
-  const commentsData = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
 
-  for (const testCase of commentsData) {
+  for (const testCase of checkoutData) {
     test(`TC-DD-${testCase.testCase}`, async ({ page, authenticatedPage, productsPage, cartPage, checkoutPage }) => {
       await productsPage.goto();
       await productsPage.addProductToCart(0);

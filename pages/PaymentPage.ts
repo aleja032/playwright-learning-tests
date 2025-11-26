@@ -21,7 +21,7 @@ export class PaymentPage extends BasePage {
     this.expiryMonthInput = page.locator('[data-qa="expiry-month"]');
     this.expiryYearInput = page.locator('[data-qa="expiry-year"]');
     this.payButton = page.locator('[data-qa="pay-button"]');
-    this.successMessage = page.locator('.alert-success');
+    this.successMessage = page.getByText("Congratulations!");
   }
 
   async fillPaymentDetails(cardName: string, cardNumber: string, cvc: string, month: string, year: string) {
@@ -37,7 +37,8 @@ export class PaymentPage extends BasePage {
   }
 
   async getSuccessMessage(): Promise<string> {
-    await this.successMessage.waitFor({ state: 'visible' });
+    await this.successMessage.waitFor({ state: 'visible', timeout: 5000 });
+    // await this.successMessage.waitFor({ state: 'visible' });
     return (await this.successMessage.textContent()) ?? '';
   }
 }
