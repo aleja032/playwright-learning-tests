@@ -1,0 +1,17 @@
+[
+  {
+    "testCase": "Agregar primer producto",
+    "productIndex": 0,
+    "expectedQuantity": "1"
+  },
+  {
+    "testCase": "Agregar segundo producto",
+    "productIndex": 0,
+    "expectedQuantity": "1"
+  },
+  {
+    "testCase": "Agregar segundo producto diferente",
+    "productIndex": 2,
+    "expectedQuantity": "1"
+  }
+]

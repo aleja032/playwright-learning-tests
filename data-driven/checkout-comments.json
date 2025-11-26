@@ -1,0 +1,18 @@
+[
+  {
+    "testCase": "Comentario estándar",
+    "comment": "Por favor, entregar en la mañana"
+  },
+  {
+    "testCase": "Comentario con instrucciones especiales",
+    "comment": "Dejar en la puerta principal. No tocar el timbre."
+  },
+  {
+    "testCase": "Comentario largo",
+    "comment": "Este es un comentario muy largo para probar que el sistema maneja correctamente textos extensos en el campo de comentarios del checkout. Debe aceptar al menos 200 caracteres sin problemas."
+  },
+  {
+    "testCase": "Sin comentario",
+    "comment": ""
+  }
+]

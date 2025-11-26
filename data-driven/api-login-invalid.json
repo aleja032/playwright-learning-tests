@@ -1,0 +1,38 @@
+[
+  {
+    "testCase": "Email y password vacíos",
+    "email": "",
+    "password": "",
+    "expectedResponseCode": 404
+  },
+  {
+    "testCase": "Email válido con password vacío",
+    "email": "testqauser@example.com",
+    "password": "",
+    "expectedResponseCode": 404
+  },
+  {
+    "testCase": "Email vacío con password válido",
+    "email": "",
+    "password": "Test@123",
+    "expectedResponseCode": 404
+  },
+  {
+    "testCase": "Email formato inválido",
+    "email": "not-an-email",
+    "password": "password123",
+    "expectedResponseCode": 404
+  },
+  {
+    "testCase": "Usuario inexistente",
+    "email": "nonexistent@fake.com",
+    "password": "anypassword",
+    "expectedResponseCode": 404
+  },
+  {
+    "testCase": "Password incorrecto",
+    "email": "testqauser@example.com",
+    "password": "wrongpassword",
+    "expectedResponseCode": 404
+  }
+]

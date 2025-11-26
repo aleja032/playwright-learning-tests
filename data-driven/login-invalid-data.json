@@ -1,0 +1,28 @@
+  [
+  { 
+    "case": "TC05-TDD usuario valido + pass invalida",
+    "email": "testqauser@example.com",
+    "password": "wrongpassword",
+    "expectedMessage": "Your email or password is incorrect!"
+  },
+  {
+    "case": "TC06-TDD correo formato invalido",
+    "email": "not-an-email",
+    "password": "123456",
+    "expectedMessage": null,
+    "description": "HTML5 validation previene el submit, no hay mensaje del servidor"
+  },
+  {
+    "case": "TC07-TDD usuario inexistente",
+    "email": "noone@fake.com",
+    "password": "12543",
+    "expectedMessage": "Your email or password is incorrect!"
+  },
+  {
+    "case": "TC08-TDD ambos vacíos",
+    "email": "",
+    "password": "",
+    "expectedMessage": null,
+    "description": "HTML5 validation previene el submit, no hay mensaje del servidor"
+  }
+]
